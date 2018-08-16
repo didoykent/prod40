@@ -39,7 +39,9 @@
        <q-btn flat round dense icon="menu"   @click="drawer = !drawer" />
   </q-toolbar>
 
+  <div v-if="$q.platform.is.desktop">
 
+  </div>
   <router-view></router-view>
 
 </q-page-container>

@@ -19,6 +19,7 @@ Route::get('/', ['as' => 'home_path', 'uses' => function () {
 }]);
 
 
+
 Route::post('mega_signin', 'Api\Auth\SignInController@megaSignIn');
 
 
