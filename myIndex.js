@@ -16,6 +16,26 @@ var users = [];
 
 
 server.listen(7740);
+var redisClient = redis.createClient();
+
+
+redisClient.subscribe('message');
+
+
+redisClient.on('message', function(channel, message){
+
+console.log(message);
+
+io.emit('write', message);
+
+});
+
+redisClient.on('disconnect', function(){
+
+
+
+  redisClient.quit();
+});
 
 
 io.on('connection', function(socket){
@@ -25,6 +45,18 @@ io.on('connection', function(socket){
 
 
 
+
+
+
+
+
+socket.on('write', function(data){
+
+
+console.log(data)
+
+io.emit('write', data);
+});
 
 
 
@@ -220,6 +252,13 @@ else if(clients.length <2){
 
 
 });
+
+
+socket.on('write', function(data){
+
+console.log(data)
+})
+
 
 
 socket.on('friendOnline', function(data){

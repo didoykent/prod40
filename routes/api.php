@@ -27,6 +27,7 @@ Route::post('mega_signin', 'Api\Auth\SignInController@megaSignIn');
 
 
 
+
 Route::group(['middleware' => ['jwt.auth']], function(){
 
 Route::post('uploadFile', 'Api\Auth\ChatController@uploadFile');
@@ -40,6 +41,8 @@ Route::post('student_signup', 'Api\Auth\SignUpController@studentSignUp');
   Route::put('editMessage/{id}', 'Api\Auth\ChatController@editMessage');
   Route::post('getMessages', 'Api\Auth\ChatController@getMessages');
   Route::post('initializeData', 'Api\Auth\ChatController@initializeData');
+  Route::post('writeTest', 'Api\Auth\ChatController@write');
+ 
 
 
 });

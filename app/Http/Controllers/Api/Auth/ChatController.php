@@ -762,4 +762,36 @@ return response()->json($name);
 
 }
 
+
+
+public function write(Request $request){
+
+  $validator = \Validator::make($request->all(),[
+  
+      'tutorIdx' => 'required',
+      'ip' => 'required',
+      'title' => 'required',
+      'content' => 'required',
+      'studentIdx' => 'required'
+  
+    ]);
+
+
+  $redis = \LRedis::connection();
+
+
+    $writeData = [];
+  $writeData['tutorIdx'] = $request->tutorIdx;
+  $writeData['ip'] = $request->ip;
+  $writeData['title'] = $request->title;
+  $writeData['content'] = $request->content;
+  $writeData['studentIdx'] = $request->studentIdx;
+
+	$encodedData = json_encode($writeData);  
+
+  $redis->publish('message', $encodedData);
+
+  return response()->json($encodedData);
+}
+
 }
