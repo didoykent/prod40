@@ -1,11 +1,19 @@
 <template id="">
 
+<div v-if="$q.platform.is.mobile">
+  <router-view></router-view>
+
+</div>
+
+<div v-else>
     <q-layout>
 
      <q-page-container>
 
+
+
   <q-toolbar color="primary" class="fixed-top full-width z-top">
-       <q-btn @click="$router.push({ name: 'SomePage' })" color="secondary" icon="arrow back"></q-btn>
+       <q-btn @click="backToPage" color="secondary" icon="arrow back"></q-btn>
 
     <!--
       For Toolbar title, we use
@@ -39,17 +47,15 @@
        <q-btn flat round dense icon="menu"   @click="drawer = !drawer" />
   </q-toolbar>
 
-  <div v-if="$q.platform.is.desktop">
+    <router-view></router-view>
 
-  </div>
-  <router-view></router-view>
 
 </q-page-container>
 
 </q-layout>
 
 
-
+</div>
 
 
 
@@ -112,6 +118,13 @@ var vm =  this
       })
     },
 
+
+    backToPage(){
+
+      var vm = this
+
+      location.reload();
+    },
 
     koreaData(){
 

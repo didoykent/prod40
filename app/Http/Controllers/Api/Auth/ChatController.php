@@ -767,27 +767,30 @@ return response()->json($name);
 public function write(Request $request){
 
   $validator = \Validator::make($request->all(),[
-  
+
       'tutorIdx' => 'required',
       'ip' => 'required',
       'title' => 'required',
       'content' => 'required',
       'studentIdx' => 'required'
-  
+
     ]);
+
+
 
 
   $redis = \LRedis::connection();
 
-
-    $writeData = [];
+  $tutorName = Mega::where('tutorIdx', $request->tutorIdx);
+  $writeData = [];
+  $writeData['tutorName'] = $tutorName->en_name;
   $writeData['tutorIdx'] = $request->tutorIdx;
   $writeData['ip'] = $request->ip;
   $writeData['title'] = $request->title;
   $writeData['content'] = $request->content;
   $writeData['studentIdx'] = $request->studentIdx;
 
-	$encodedData = json_encode($writeData);  
+	$encodedData = json_encode($writeData);
 
   $redis->publish('message', $encodedData);
 
